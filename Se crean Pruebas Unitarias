@@ -1,0 +1,45 @@
+package com.mycompany.heroe;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class HeroeTest {
+    private Heroe mario;
+
+    // Este método se ejecutará antes de cada prueba para crear el objeto Heroe
+    @BeforeEach
+    public void setUp() {
+        mario = new Heroe("Mario");
+    }
+
+    @Test
+    public void testAvanzar() {
+        mario.setAvanzar();
+        assertEquals(1, mario.getX(), "Mario debe estar en el paso 1");
+    }
+
+    @Test
+    public void testSaltar() {
+        mario.Saltar();
+        assertTrue(mario.getVida() == 3, "La vida de Mario no debe cambiar al saltar correctamente.");
+    }
+
+    @Test
+    public void testObstaculoSinSaltar() {
+        mario.setAvanzar(); // Mario avanza y encuentra un obstáculo
+        mario.Obstaculo();   // Mario no salta el obstáculo
+        assertEquals(2, mario.getVida(), "Mario debe perder una vida si no salta el obstáculo.");
+    }
+
+    @Test
+    public void testPerderTodasLasVidas() {
+        mario.setAvanzar(); // Mario avanza
+        mario.Obstaculo();   // Pierde una vida
+        mario.setAvanzar(); // Mario avanza
+        mario.Obstaculo();   // Pierde otra vida
+        mario.setAvanzar(); // Mario avanza
+        mario.Obstaculo();   // Pierde la última vida
+        assertTrue(mario.getVida() <= 0, "Mario debería haber perdido todas las vidas.");
+    }
+}
